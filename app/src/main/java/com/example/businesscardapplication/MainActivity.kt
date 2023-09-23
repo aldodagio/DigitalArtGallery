@@ -5,137 +5,137 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment.Companion.Top
+import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-                Surface(
-                    modifier = Modifier.fillMaxSize().background(Color(0x50, 0xAA, 0x50, 0x77))
+            Surface (
+                modifier = Modifier
+                    .fillMaxSize()
+            )
+            {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally, // Center horizontally
                 ) {
-                    Column (modifier = Modifier
-                        .fillMaxSize() // Take up the entire available space
-                        .background(Color(0x50, 0xAA, 0x50, 0x77)),
-                        verticalArrangement = Arrangement.Center, // Center vertically
-                        horizontalAlignment = Alignment.CenterHorizontally, // Center horizontally
-                         ){
-                        BusinessImageRow()
-                        Spacer(modifier = Modifier.height(80.dp))
-                        NameTextRow()
-                        Spacer(modifier = Modifier.height(10.dp))
-                        NameTextRow()
-                        Spacer(modifier = Modifier.height(8.dp))
-                        PhoneTextRow()
-                        Spacer(modifier = Modifier.height(8.dp))
-                        EmailTextRow()
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ArtWall()
+                    Spacer(modifier = Modifier.height(100.dp))
+                    ArtTitle()
+                    Spacer(modifier = Modifier.height(30.dp))
+                    ButtonRow()
                 }
+            }
         }
     }
 }
-
 @Composable
-fun BusinessImageRow() {
+fun ButtonRow() {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.android),
-            contentDescription = stringResource(id = R.string.app_name)
-        )
-    }
-}
-@Composable
-fun PhoneTextRow() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            painter = painterResource(id = R.drawable.phone),
-            contentDescription = stringResource(id = R.string.app_name)
-        )
+        Button(onClick = { /*TODO*/ },modifier = Modifier.width(120.dp)) {
+            Text(text = "Previous")
+        }
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = "Phone Number: (916) 517 - 9142")
+        Button(onClick = { /*TODO*/ },modifier = Modifier.width(120.dp)) {
+            Text(text = "Next")
+        }
     }
 }
 @Composable
-fun NameTextRow() {
+fun ArtWall() {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "Aldo Dagio-Ortega", fontWeight = FontWeight.Bold)
+        Box(
+            Modifier
+                .align(Top)
+                .height(400.dp)
+                .width(300.dp)
+                .background(Color.White)
+                .shadow(4.dp, shape = RoundedCornerShape(8.dp))
+        ){
+            Image(painter = painterResource(id = R.drawable.android),
+            contentDescription = stringResource(id = R.string.app_name),
+            modifier = Modifier.align(Alignment.Center)
+                .border(2.dp, Color.Black))
+        }
     }
 }
 @Composable
-fun SchoolTextRow() {
+fun ArtTitle(){
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "Computer Science Student at Long Beach State")
-    }
-}
-@Composable
-fun EmailTextRow() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            painter = painterResource(id = R.drawable.mail),
-            contentDescription = stringResource(id = R.string.app_name)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = "Email: aldo.dagio-ortega01@student.csulb.edu")
-    }
-}
-@Composable
-fun LinkedInTextRow() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            painter = painterResource(id = R.drawable.linkedin),
-            contentDescription = stringResource(id = R.string.app_name)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = "LinkedIn: www.linkedin.com/in/aldo-dagio-9696b7158/")
-    }
-}
-@Composable
-fun GitHubTextRow() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            painter = painterResource(id = R.drawable.github),
-            contentDescription = stringResource(id = R.string.app_name)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = "GitHub: https://github.com/aldodagio")
+        Box(
+            Modifier
+                .align(CenterVertically)
+                .height(110.dp)
+                .width(300.dp)
+                .background(Color.LightGray)
+        ){
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Computer Science Student at Long Beach State",
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(1.dp)
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Aldo Dagio-Ortega",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "(2023)",
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+                }
+            }
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun BusinessCardPreview() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize() // Take up the entire available space
-            .background(Color(0x50, 0xAA, 0x50, 0x77)),
-        verticalArrangement = Arrangement.Center, // Center vertically
-        horizontalAlignment = Alignment.CenterHorizontally, // Center horizontally
-    ) {
-        BusinessImageRow()
-        Spacer(modifier = Modifier.height(10.dp))
-        NameTextRow()
-        Spacer(modifier = Modifier.height(10.dp))
-        SchoolTextRow()
-        Spacer(modifier = Modifier.height(300.dp))
-        PhoneTextRow()
-        Spacer(modifier = Modifier.height(8.dp))
-        EmailTextRow()
-        Spacer(modifier = Modifier.height(8.dp))
-        GitHubTextRow()
-        Spacer(modifier = Modifier.height(8.dp))
-        LinkedInTextRow()
-        Spacer(modifier = Modifier.height(8.dp))
+
+    Surface (
+            modifier = Modifier
+                .fillMaxSize()
+    )
+    {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally, // Center horizontally
+        ) {
+            Spacer(modifier = Modifier.height(10.dp))
+            ArtWall()
+            Spacer(modifier = Modifier.height(100.dp))
+            ArtTitle()
+            Spacer(modifier = Modifier.height(30.dp))
+            ButtonRow()
+        }
     }
 }
 
